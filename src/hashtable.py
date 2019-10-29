@@ -82,7 +82,10 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        pair = self.storage[index]
+
+        
 
 
     def retrieve(self, key):
