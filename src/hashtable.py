@@ -51,7 +51,26 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        print(index)
+        print("index")
+
+        pair = self.storage[index]
+        print(pair)
+
+        final_pair = None
+
+        while pair and pair.key != key:
+            final_pair = pair
+            pair = final_pair.next
+        if pair:
+            pair.value = value
+        else:
+            new_pair = LinkedPair(key, value)
+            new_pair.next = self.storage[index]
+            self.storage[index] = new_pair
+        # pass
+        
 
 
 
@@ -74,7 +93,13 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        pair = self.storage[index]
+
+        while pair:
+            if pair.key == key:
+                return pair.value
+            pair = pair.next
 
 
     def resize(self):
@@ -107,7 +132,7 @@ if __name__ == "__main__":
     ht.resize()
     new_capacity = len(ht.storage)
 
-    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
     # Test if data intact after resizing
     print(ht.retrieve("line_1"))
