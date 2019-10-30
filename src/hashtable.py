@@ -52,12 +52,7 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        print(index)
-        print("index")
-
         pair = self.storage[index]
-        print(pair)
-
         final_pair = None
 
         while pair and pair.key != key:
@@ -83,7 +78,20 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        pair = self.storage[index]
+        current = self.storage[index]
+        previous = None
+
+        while current and current.key != key:
+            previous = current
+            current = previous.next
+
+        if current is None:
+            print("Warning: Node not found")
+        else:
+            if previous is None:
+                self.storage[index] = current.next
+            else:
+                previous.next = current.next
 
         
 
@@ -112,7 +120,16 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        self.capacity = self.capacity * 2
+        new_storage = HashTable(self.capacity)
+
+        for node in self.storage:
+            current = node
+            while current:
+                new_storage.insert(current.key, current.value)
+                current = current.next
+
+        self.storage = new_storage.storage
 
 
 
